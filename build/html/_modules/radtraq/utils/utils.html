@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>radtraq.utils.utils &mdash; RadTraq 0.post1+g9d9f0be documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=c75c7b45"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            RadTraq
+          </a>
+              <div class="version">
+                0.post1+g9d9f0be
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/auto_examples/index.html">RadTraq Example Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../API/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ARM-Development/RadTraQ">Github Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/AdamTheisen/RadTraQ/issues">GitHub Issue Tracker</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">RadTraq</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">radtraq.utils.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for radtraq.utils.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pint</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<div class="viewcode-block" id="calc_ground_range_and_height">
+<a class="viewcode-back" href="../../../API/generated/radtraq.utils.calc_ground_range_and_height.html#radtraq.utils.calc_ground_range_and_height">[docs]</a>
+<span class="k">def</span> <span class="nf">calc_ground_range_and_height</span><span class="p">(</span><span class="n">slant_range</span><span class="p">,</span> <span class="n">elevation</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function for calculating height and ground range from a slant range path</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slant_range : Xarray.DataArray</span>
+<span class="sd">        Xarray DataArray containing slant range data including units attribute</span>
+<span class="sd">    elevation : float</span>
+<span class="sd">        Elevation angle for slant_range ray in degrees</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    obj : Xarray.Dataset</span>
+<span class="sd">        Xarray Dataset containing &#39;ground_range&#39; and &#39;height&#39; DataArrays</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># distance units used in calculations</span>
+    <span class="n">desired_units</span> <span class="o">=</span> <span class="s1">&#39;km&#39;</span>
+    <span class="n">range_units</span> <span class="o">=</span> <span class="n">slant_range</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+    <span class="c1"># Convert units to desired_units</span>
+    <span class="n">unit_registry</span> <span class="o">=</span> <span class="n">pint</span><span class="o">.</span><span class="n">UnitRegistry</span><span class="p">()</span>
+    <span class="n">range_dist_values</span> <span class="o">=</span> <span class="n">slant_range</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">range_dist_values</span> <span class="o">=</span> <span class="n">range_dist_values</span> <span class="o">*</span> <span class="n">unit_registry</span><span class="o">.</span><span class="n">parse_expression</span><span class="p">(</span><span class="n">range_units</span><span class="p">)</span>
+    <span class="n">range_dist_values</span> <span class="o">=</span> <span class="n">range_dist_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">desired_units</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+    <span class="c1"># Calculate height values</span>
+    <span class="n">earth_radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">4.</span> <span class="o">/</span> <span class="mf">3.</span> <span class="o">*</span> <span class="mf">6374.</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  <span class="c1"># Effective earth radius in km.</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">earth_radius</span><span class="o">**</span><span class="mf">2.0</span> <span class="o">+</span>
+                     <span class="n">range_dist_values</span><span class="o">**</span><span class="mf">2.0</span> <span class="o">-</span>
+                     <span class="mf">2.0</span> <span class="o">*</span> <span class="n">earth_radius</span> <span class="o">*</span> <span class="n">range_dist_values</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">elevation</span> <span class="o">+</span> <span class="mf">90.</span><span class="p">)))</span>
+
+    <span class="c1"># Calculate ground range values</span>
+    <span class="n">term_1</span> <span class="o">=</span> <span class="n">earth_radius</span><span class="o">**</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">height</span><span class="o">**</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">range_dist_values</span><span class="o">**</span><span class="mf">2.0</span>
+    <span class="n">term_2</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">earth_radius</span> <span class="o">*</span> <span class="n">height</span>
+    <span class="n">ground_range</span> <span class="o">=</span> <span class="n">earth_radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">term_1</span> <span class="o">/</span> <span class="n">term_2</span><span class="p">)</span>
+
+    <span class="c1"># Subtract Earth radius from height</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="o">-</span> <span class="n">earth_radius</span>
+
+    <span class="c1"># Convert hieghts back into orginal units</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="o">*</span> <span class="n">unit_registry</span><span class="o">.</span><span class="n">parse_expression</span><span class="p">(</span><span class="n">desired_units</span><span class="p">)</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">height</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">range_units</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+    <span class="c1"># Convert ground range into input units</span>
+    <span class="n">ground_range</span> <span class="o">=</span> <span class="n">ground_range</span> <span class="o">*</span> <span class="n">unit_registry</span><span class="o">.</span><span class="n">parse_expression</span><span class="p">(</span><span class="n">desired_units</span><span class="p">)</span>
+    <span class="n">ground_range</span> <span class="o">=</span> <span class="n">ground_range</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">range_units</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+    <span class="c1"># Create Dataset to return including attributes.</span>
+    <span class="n">return_dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">()</span>
+    <span class="n">return_dataset</span><span class="p">[</span><span class="s1">&#39;ground_range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ground_range</span><span class="p">,</span>
+                                                  <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Range along ground&#39;</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">range_units</span><span class="p">})</span>
+    <span class="n">return_dataset</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Height above ground&#39;</span><span class="p">,</span>
+                                                                <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">range_units</span><span class="p">,</span> <span class="s1">&#39;standard_name&#39;</span><span class="p">:</span> <span class="s1">&#39;height&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">return_dataset</span></div>
+
+
+
+<div class="viewcode-block" id="calculate_azimuth_distance_from_lat_lon">
+<a class="viewcode-back" href="../../../API/generated/radtraq.utils.calculate_azimuth_distance_from_lat_lon.html#radtraq.utils.calculate_azimuth_distance_from_lat_lon">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_azimuth_distance_from_lat_lon</span><span class="p">(</span><span class="n">curr_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">curr_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                            <span class="n">target_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns dictionary of distance and direction between two pairs of lat/lon values.</span>
+
+<span class="sd">    ...</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    curr_lat : float</span>
+<span class="sd">        The latitude of first location assumed to be in same units as target_lat</span>
+<span class="sd">    curr_lon : float</span>
+<span class="sd">        The longitude of first location assumed to be in same units as target_lon</span>
+<span class="sd">    target_lat : float</span>
+<span class="sd">        The latitude of second location assumed to be in same units as curr_lat</span>
+<span class="sd">    target_lon : float</span>
+<span class="sd">        The longitude of second location assumed to be in same units as curr_lon</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing azimuth and distance from first location to second location.</span>
+<span class="sd">        Azimiuth values are in degrees and distance is in meters.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">azimuth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;azimuth&#39;</span><span class="p">:</span> <span class="n">azimuth</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="n">distance</span><span class="p">}</span>
+
+    <span class="n">earth_r</span> <span class="o">=</span> <span class="mf">6353000.0</span>
+    <span class="n">lon1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">curr_lon</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">lat1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">curr_lat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">lon2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">target_lon</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">lat2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">target_lat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">delta_lon</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">-</span> <span class="n">lon2</span>
+
+    <span class="c1"># Calcualte distance</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">delta_lon</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">delta_lon</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">delta_lon</span><span class="p">)</span>
+
+    <span class="n">dist_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">doc</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">earth_r</span> <span class="o">*</span> <span class="n">dist_angle</span>
+
+    <span class="c1"># Calculate azimuth</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">delta_lon</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">delta_lon</span><span class="p">)</span>
+
+    <span class="n">azimuth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">doc</span><span class="p">[</span><span class="s1">&#39;azimuth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">azimuth</span><span class="p">,</span> <span class="mf">360.0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">doc</span></div>
+
+
+
+<div class="viewcode-block" id="calculate_dual_dop_lobes">
+<a class="viewcode-back" href="../../../API/generated/radtraq.utils.calculate_dual_dop_lobes.html#radtraq.utils.calculate_dual_dop_lobes">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_dual_dop_lobes</span><span class="p">(</span><span class="n">coord_dict</span><span class="p">,</span> <span class="n">min_crossing_angle</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns lat/lon of each dual dop lobe at 1 deg resolution</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    coord_dict : dict</span>
+<span class="sd">        Dictionary of site coordinates {site: {&#39;lat&#39;: 11.11, &#39;lon&#39;: 22.22}}</span>
+<span class="sd">    min_crossing_angle : float</span>
+<span class="sd">        Minimum crossing angle for dual doppler</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        Dictionary of lat, lon for each lobe</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sites</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">coord_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">theta_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">min_crossing_angle</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sites</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sites</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">lon1</span> <span class="o">=</span> <span class="n">coord_dict</span><span class="p">[</span><span class="n">sites</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+            <span class="n">lon2</span> <span class="o">=</span> <span class="n">coord_dict</span><span class="p">[</span><span class="n">sites</span><span class="p">[</span><span class="n">j</span><span class="p">]][</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+            <span class="n">lat1</span> <span class="o">=</span> <span class="n">coord_dict</span><span class="p">[</span><span class="n">sites</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+            <span class="n">lat2</span> <span class="o">=</span> <span class="n">coord_dict</span><span class="p">[</span><span class="n">sites</span><span class="p">[</span><span class="n">j</span><span class="p">]][</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">lon2</span> <span class="o">&gt;</span> <span class="n">lon1</span><span class="p">:</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="n">lat2</span> <span class="o">-</span> <span class="n">lat1</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="n">lon2</span> <span class="o">-</span> <span class="n">lon1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="n">lat1</span> <span class="o">-</span> <span class="n">lat2</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">-</span> <span class="n">lon2</span>
+
+            <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">dy</span> <span class="o">/</span> <span class="n">dx</span><span class="p">)</span>
+
+            <span class="n">lon_midpoint</span> <span class="o">=</span> <span class="p">(</span><span class="n">lon1</span> <span class="o">+</span> <span class="n">lon2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+            <span class="n">lat_midpoint</span> <span class="o">=</span> <span class="p">(</span><span class="n">lat1</span> <span class="o">+</span> <span class="n">lat2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+            <span class="n">midpoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">lon2</span> <span class="o">-</span> <span class="n">lon1</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.</span> <span class="o">+</span> <span class="p">(</span><span class="n">lat2</span> <span class="o">-</span> <span class="n">lat1</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+
+            <span class="n">h</span> <span class="o">=</span> <span class="n">midpoint</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">theta_r</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+            <span class="n">h2</span> <span class="o">=</span> <span class="n">midpoint</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">theta_r</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="n">h2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+
+            <span class="n">ycenter</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">-</span> <span class="n">h2</span>
+            <span class="n">ycenter2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">+</span> <span class="n">h2</span>
+
+            <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">lobe1_lon</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">ycenter</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">))</span> <span class="o">+</span> <span class="n">lon_midpoint</span> <span class="o">+</span> <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+            <span class="n">lobe1_lat</span> <span class="o">=</span> <span class="n">ycenter</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">+</span> <span class="n">lat_midpoint</span> <span class="o">+</span> <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+            <span class="n">lobe2_lon</span> <span class="o">=</span> <span class="n">ycenter</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">+</span> <span class="n">lon_midpoint</span> <span class="o">+</span> <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+            <span class="n">lobe2_lat</span> <span class="o">=</span> <span class="n">ycenter2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">+</span> <span class="n">lat_midpoint</span> <span class="o">+</span> <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lobe&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ct</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="n">lobe1_lon</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="n">lobe1_lat</span><span class="p">}</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lobe&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ct</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="n">lobe2_lon</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="n">lobe2_lat</span><span class="p">}</span>
+            <span class="n">ct</span> <span class="o">+=</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Argonne National Laboratory.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5TDQJ2SJ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-B5TDQJ2SJ0', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

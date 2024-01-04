@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>radtraq.plotting.plot_cr_raster &mdash; RadTraq 0.post1+g9d9f0be documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=c75c7b45"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="radtraq.plotting.plot_self_consistency" href="radtraq.plotting.plot_self_consistency.html" />
+    <link rel="prev" title="radtraq.plotting.plot_avg_profile" href="radtraq.plotting.plot_avg_profile.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            RadTraq
+          </a>
+              <div class="version">
+                0.post1+g9d9f0be
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/auto_examples/index.html">RadTraq Example Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../plotting.html">radtraq.plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="radtraq.plotting.calc_cfad.html">radtraq.plotting.calc_cfad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="radtraq.plotting.plot_cfad.html">radtraq.plotting.plot_cfad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="radtraq.plotting.plot_avg_profile.html">radtraq.plotting.plot_avg_profile</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">radtraq.plotting.plot_cr_raster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#radtraq.plotting.plot_cr_raster"><code class="docutils literal notranslate"><span class="pre">plot_cr_raster()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="radtraq.plotting.plot_self_consistency.html">radtraq.plotting.plot_self_consistency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../proc.html">radtraq.proc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">radtraq.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ARM-Development/RadTraQ">Github Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/AdamTheisen/RadTraQ/issues">GitHub Issue Tracker</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">RadTraq</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../plotting.html">radtraq.plotting</a></li>
+      <li class="breadcrumb-item active">radtraq.plotting.plot_cr_raster</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/API/generated/radtraq.plotting.plot_cr_raster.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="radtraq-plotting-plot-cr-raster">
+<h1>radtraq.plotting.plot_cr_raster<a class="headerlink" href="#radtraq-plotting-plot-cr-raster" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="radtraq.plotting.plot_cr_raster">
+<span class="sig-prename descclassname"><span class="pre">radtraq.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_cr_raster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reflectivity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">az_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">el_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axislabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['Azimuth</span> <span class="pre">(degree)',</span> <span class="pre">'Elevation</span> <span class="pre">(degree)']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axislabels_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_orient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vertical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noplot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">az_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'azimuth'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">el_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'elevation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'range'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/radtraq/plotting/corner_reflector.html#plot_cr_raster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#radtraq.plotting.plot_cr_raster" title="Link to this definition"></a></dt>
+<dd><p>Plot a corner reflector raster scan</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<em>Xarray.Dataset</em>) – Xarray Dataset containing data</p></li>
+<li><p><strong>field</strong> (<em>String</em>) – Field to plot if other than reflectivity</p></li>
+<li><p><strong>target_range</strong> (<em>Float</em>) – Estimated range of the corner reflector</p></li>
+<li><p><strong>ax</strong> (<em>Axis</em>) – Axis to plot on. None will use the current axis.</p></li>
+<li><p><strong>fig</strong> (<em>Figure</em>) – Figure to add the colorbar to. None will use the current figure.</p></li>
+<li><p><strong>delta_x</strong> (<em>Float</em>) – Azimuth grid spacing for griddata</p></li>
+<li><p><strong>delta_y</strong> (<em>Float</em>) – Elevation grid spacing for griddata</p></li>
+<li><p><strong>target_limits</strong> (<em>list</em>) – Distance limits in form [min, max] used to subset the data when determining
+what range to analyze. This is ignored if target_range is set.</p></li>
+<li><p><strong>az_limits</strong> (<em>list</em>) – Azimuth limits in form [min, max]</p></li>
+<li><p><strong>el_limits</strong> (<em>list</em>) – Elevation limits in form [min, max]</p></li>
+<li><p><strong>vmin</strong> (<em>float</em>) – Luminance minimum value used in plotting, None for default value.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em>) – Luminance maximum value used in plotting, None for default value.</p></li>
+<li><p><strong>cmap</strong> (<em>str or None</em>) – Matplotlib colormap name. None will use the default colormap for
+the field being plotted as specified by the Py-ART configuration.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Title to label plot with, None to use default title generated from
+the field and sweep parameters. Parameter is ignored if title_flag
+is False.</p></li>
+<li><p><strong>title_flag</strong> (<em>bool</em>) – Set to True to add a title to the plot, False does not add a title.</p></li>
+<li><p><strong>axislabels</strong> (<em>(str, str)</em>) – 2-tuple of x-axis, y-axis labels. None for either label will use
+the default axis label. Parameter is ignored if axislabels_flag is
+False.</p></li>
+<li><p><strong>axislabels_flag</strong> (<em>bool</em>) – True to add label the axes, False does not label the axes.</p></li>
+<li><p><strong>colorbar_flag</strong> (<em>bool</em>) – True to add a colorbar with label to the axis. False leaves off
+the colorbar.</p></li>
+<li><p><strong>colorbar_label</strong> (<em>str</em>) – Colorbar label, None will use a default label generated from the
+field information.</p></li>
+<li><p><strong>colorbar_orient</strong> (<em>‘vertical’ or ‘horizontal’</em>) – Colorbar orientation.</p></li>
+<li><p><strong>noplot</strong> (<em>boolean</em>) – Switch to indicate if a plot should be created or just return the values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dict</strong> – A dictionary with values for
+max = Maximum data value
+min = Maximum data value
+az_max = Azimuth value for maximum data value, hopefully in center of corner reflector
+el_max = Elevation value for maximum data value, hopefully in center of corner reflector
+el_top = Elevation value for top of corner reflector
+range = Distance to target</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="radtraq.plotting.plot_avg_profile.html" class="btn btn-neutral float-left" title="radtraq.plotting.plot_avg_profile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="radtraq.plotting.plot_self_consistency.html" class="btn btn-neutral float-right" title="radtraq.plotting.plot_self_consistency" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Argonne National Laboratory.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5TDQJ2SJ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-B5TDQJ2SJ0', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
