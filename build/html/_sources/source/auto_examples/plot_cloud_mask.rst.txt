@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_source_auto_examples_plot_cloud_mask.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -67,7 +67,7 @@ This example shows how to calculate a cloud mask and plot data
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.465 seconds)
+   **Total running time of the script:** (0 minutes 0.624 seconds)
 
 
 .. _sphx_glr_download_source_auto_examples_plot_cloud_mask.py:
@@ -83,6 +83,10 @@ This example shows how to calculate a cloud mask and plot data
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_cloud_mask.py <plot_cloud_mask.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_cloud_mask.zip <plot_cloud_mask.zip>`
 
 
 .. only:: html

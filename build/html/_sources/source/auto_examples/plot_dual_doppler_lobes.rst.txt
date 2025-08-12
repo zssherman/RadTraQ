@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_source_auto_examples_plot_dual_doppler_lobes.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -88,6 +88,10 @@ code-block:: python
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_dual_doppler_lobes.py <plot_dual_doppler_lobes.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_dual_doppler_lobes.zip <plot_dual_doppler_lobes.zip>`
 
 
 .. only:: html
